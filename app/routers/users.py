@@ -24,7 +24,8 @@ async def create_user(new_user: schemas.UserCreate, db: Session = Depends(get_db
     try:
         db.add(created_user)
         db.commit()
-    except:
+    except Exception as e:
+        print(e)
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="This email is already registered")
     db.refresh(created_user)
 
